@@ -11,7 +11,7 @@ router.get("/", (req, res) => {
             if (error) {
                 console.log(`error accessing database: ${error}`);
             } else {
-                res.send({ results });
+                res.send({results});
             }
         }
     );
@@ -22,7 +22,8 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
     const id = req.params.id;
     connection.query(
-        "SELECT id, title, artist FROM track WHERE id=?", id,
+        "SELECT id, title, artist FROM track WHERE id=?",
+        id,
         (error, results) => {
             if (error) {
                 console.log(`error accessing database: ${error}`);
