@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const connection = require('./conf')
 
 app.use(express.json());
 
@@ -18,7 +17,9 @@ app.use('/playlists', playlistsRoute)
 
 //ROUTES
 
-
+app.get('/', (req,res) => {
+    res.send('Welcome to songs & playlists')
+})
 
 
 //CONNECT TO DB
