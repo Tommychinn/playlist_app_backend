@@ -11,8 +11,10 @@ app.use(express.urlencoded({
 
 //IMPORT ROUTES
 const songsRoute = require('./routes/songs')
+const playlistsRoute = require('./routes/playlists')
 
 app.use('/songs', songsRoute)
+app.use('/playlists', playlistsRoute)
 
 //ROUTES
 
