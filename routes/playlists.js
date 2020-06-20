@@ -19,12 +19,13 @@ router.get('/', (req,res) => {
 //GET individual playlist
 
 router.get('/:id', (req,res) => {
+    const query = "SELECT * FROM playlist WHERE id = ?;SELECT * FROM track_playlist WHERE playlist_id = ?";
     const id = req.params.id
-    connection.query('SELECT * FROM playlist WHERE id = ?', id, (error, results) => {
+    connection.query(query, [id, id], (error, results, fields) => {
         if (error) {
             console.log(error)
         } else {
-            res.status(200).send(results)
+            res.send(results);
         }
     })
 })
@@ -43,15 +44,24 @@ router.post('/', (req,res) => {
 
 //GET songs from playlist
 
+// router.get()
+
 //POST song to playlist
 
 router.post('/:playlist/songs/:track', (req,res) => {
     const track = req.params.track;
     const playlist = req.params.playlist;
+
+    connection.query('SET FOREIGN_KEY_CHECKS = 0', (err) => {
+        console.log(err)
+    })
     connection.query('INSERT INTO track_playlist (track_id, playlist_id) values (?,?)', [track, playlist], (error) => {
         if (error) {
             console.log(`Error submitting ${song} to playlist: ${playlist}`)
         }
+    })
+    connection.query('SET FOREIGN_KEY_CHECKS = 1', (err) => {
+        console.log(err)
     })
 })
 
