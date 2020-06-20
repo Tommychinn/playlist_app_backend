@@ -21,7 +21,7 @@ router.get('/', (req,res) => {
 router.get('/:id', (req,res) => {
     const query = "SELECT * FROM playlist WHERE id = ?;SELECT * FROM track_playlist WHERE playlist_id = ?";
     const id = req.params.id
-    connection.query(query, [id, id], (error, results, fields) => {
+    connection.query(query, [id, id], (error, results) => {
         if (error) {
             console.log(error)
         } else {
