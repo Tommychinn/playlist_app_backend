@@ -61,4 +61,15 @@ router.put("/:id", (req, res) => {
     );
 });
 
+//DELETE songs
+
+router.delete('/:id', (req,res) => {
+    const id = req.params.id
+    connection.query('DELETE FROM track WHERE id = ?', id, (error) => {
+        if (error) {
+            console.log(error)
+        }
+    })
+})
+
 module.exports = router;
