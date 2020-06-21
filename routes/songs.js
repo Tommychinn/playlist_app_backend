@@ -11,10 +11,14 @@ router.get("/", (req, res) => {
             if (error) {
                 console.log(`error accessing database: ${error}`);
             } else {
-                res.send({results});
+                res.send(results);
             }
         }
     );
+});
+
+router.get("/hello", (req, res) => {
+    res.send('hello from the api')
 });
 
 // GET individual song from database

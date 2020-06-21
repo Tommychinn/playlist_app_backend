@@ -1,36 +1,55 @@
-const express = require('express');
+const express = require("express");
 const app = express();
-require('dotenv/config');
+const cors = require("cors");
+require("dotenv/config");
 
 app.use(express.json());
 
-app.use(express.urlencoded({
-  extended: true
-}));
+app.use(
+    express.urlencoded({
+        extended: true,
+    })
+);
 
+app.use((req, res, next) => {
+    // Website you wish to allow to connect
+    res.setHeader("Access-Control-Allow-Origin", "http://localhost:3000");
+
+
+
+    // Request headers you wish to allow
+    res.setHeader(
+        "Access-Control-Allow-Headers",
+        "X-Requested-With,content-type"
+    );
+
+
+
+    // Pass to next layer of middleware
+    next();
+});
 
 //IMPORT ROUTES
-const songsRoute = require('./routes/songs')
-const playlistsRoute = require('./routes/playlists')
+const songsRoute = require("./routes/songs");
+const playlistsRoute = require("./routes/playlists");
 
-app.use('/songs', songsRoute)
-app.use('/playlists', playlistsRoute)
+app.use("/songs", songsRoute);
+app.use("/playlists", playlistsRoute);
+app.use(cors());
 
 //ROUTES
 
-app.get('/', (req,res) => {
-    res.send('Welcome to songs & playlists')
-})
-
+app.get("/", (req, res) => {
+    res.send("Welcome to songs & playlists");
+});
 
 //CONNECT TO DB
-
 
 //LISTENING
 app.listen(process.env.PORT || 3050, (err) => {
     if (err) {
-        console.log(err)
+        console.log(err);
     } else {
-        console.log(`server listening on ${process.env.PORT}`)
+        console.log(`server listening on ${process.env.PORT}`);
     }
 });
